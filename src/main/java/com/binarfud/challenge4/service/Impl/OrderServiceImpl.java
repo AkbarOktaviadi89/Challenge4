@@ -39,11 +39,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<OrdersResponse> findAllOrders() {
+        log.info("Fetching all orders.");
         return ordersResponseRepository.getAllOrders();
     }
 
     @Override
     public Boolean createNewOrders(Long userId, Long productCode, String destinationAddress, int productQty, boolean isOpen) {
+        log.info("Creating a new order...");
 
         Users users = usersRepository.findById(userId).orElse(null);
 
@@ -67,19 +69,25 @@ public class OrderServiceImpl implements OrderService {
                 .qty(orderDetail.getQuantity())
                 .total_price(orderDetail.getTotalPrice())
                 .build();
-        return Optional.ofNullable(ordersResponseRepository.save(ordersResponse)).map(Objects::nonNull).orElse(Boolean.FALSE);
 
+        Boolean isOrderCreated = Optional.ofNullable(ordersResponseRepository.save(ordersResponse)).map(Objects::nonNull).orElse(Boolean.FALSE);
+
+        if (isOrderCreated) {
+            log.info("New order created successfully.");
+        } else {
+            log.error("Failed to create a new order.");
+        }
+
+        return isOrderCreated;
     }
-
-
 
     @Override
     public Page<OrdersResponse> getOrdersPaged(int page) {
         try {
-            log.info("Retrieving paged merchants for page {}.", (page + 1));
+            log.info("Retrieving paged orders for page {}.", (page + 1));
             return ordersResponseRepository.findAllWithPaging(PageRequest.of(page, 3));
         } catch (Exception e) {
-            log.error("Error while retrieving paged merchants: {}", e.getMessage(), e);
+            log.error("Error while retrieving paged orders: {}", e.getMessage(), e);
             return Page.empty();
         }
     }
