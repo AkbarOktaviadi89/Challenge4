@@ -49,8 +49,7 @@ public class MerchantController {
                     }
                     break;
                 default:
-                    userInputController.mainMenu();
-                    break;
+                    return;
             }
         } catch (Exception e) {
             MenuView.showError();

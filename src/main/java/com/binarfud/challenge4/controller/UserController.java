@@ -52,8 +52,7 @@ public class UserController {
                     }
                     break;
                 default:
-                    userInputController.mainMenu();
-                    break;
+                    return;
             }
         } catch (Exception e) {
             MenuView.showError();
@@ -66,8 +65,6 @@ public class UserController {
                             this.serveInput();
                         }
                     });
-        } finally {
-            scanner.close();
         }
     }
 
@@ -166,7 +163,6 @@ public class UserController {
         } catch (Exception e) {
             System.out.println("Gagal menghapus user: " + e.getMessage());
         }
-
         this.serveInput();
     }
 }

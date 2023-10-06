@@ -29,7 +29,7 @@ public class Orders {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    private Users users; // Use singular "User" instead of "Users"
+    private Users users;
 
     @Column(name = "completed", nullable = false)
     private boolean completed;

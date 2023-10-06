@@ -13,7 +13,7 @@ import static com.binarfud.challenge4.view.MenuView.*;
 public class UserInputController {
 
     @PostConstruct
-    public void init() {
+    public void init(){
         this.mainMenu();
     }
 
@@ -28,28 +28,32 @@ public class UserInputController {
     @Autowired
     UserController userController;
 
-    public void mainMenu() {
-        MenuView.showMenu();
-        try {
-            int input = scanner.nextInt();
-            scanner.nextLine();
+    @Autowired
+    OrderController orderController;
 
-            switch (input) {
-                case 1:
-                    productController.serveInput();
-                    break;
-                case 2:
-                    merchantController.serveInput();
-                    break;
-                case 3:
-                    userController.serveInput();
-            }
-        } catch (Exception e) {
-            showError();
-            String input = scanner.next();
-            if (input.equalsIgnoreCase("Y")){
-            this.mainMenu();
+        public void mainMenu() {
+            MenuView.showMenu();
+            try {
+                int input = scanner.nextInt();
+                scanner.nextLine();
+
+                switch (input) {
+                    case 1:
+                        productController.serveInput();
+                        break;
+                    case 2:
+                        merchantController.serveInput();
+                        break;
+                    case 3:
+                        userController.serveInput();
+                        break;
+                    case 4:
+                        orderController.serveInput();
+                        break;
+                }
+                this.mainMenu();
+            }catch (Exception e){
+                MenuView.showError();
             }
         }
     }
-}

@@ -18,7 +18,7 @@ public class OrderDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderDetail_id;  // Kolom ID yang baru ditambahkan
+    private Long orderDetail_id;
 
     @ManyToOne
     @JoinColumn(name = "order_id")

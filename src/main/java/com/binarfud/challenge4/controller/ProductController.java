@@ -19,7 +19,6 @@ public class ProductController {
     @Autowired
     ProductService productService;
     private int currentPage = 0;
-    UserInputController userInputController = new UserInputController();
 
     public void serveInput(){
         Page<Product> productPage = productService.getProductPaged(currentPage);
@@ -51,8 +50,7 @@ public class ProductController {
                     }
                     break;
                 default:
-                    userInputController.mainMenu();
-                    break;
+                    return;
             }
         }catch (Exception e){
             MenuView.showError();
